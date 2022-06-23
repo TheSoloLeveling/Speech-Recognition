@@ -47,7 +47,6 @@ $(document).ready(function () {
 	$("#skip").click(function () {
 		$('#sentenceNumber').val(getRandomInt(numSentences));
 		updateSentence();
-		updateFieldSet();
 		$("#record").attr("disabled", false);
 		$("#stop").attr("disabled", true);
 		$("#nextSentence").attr("disabled", true);
@@ -57,7 +56,6 @@ $(document).ready(function () {
 	$("#name").val(randomString() + randomString());
 	$(document).on("input", "#dataset", updateDataset);
 	$(document).on("input", "#sentenceNumber", updateSentence);
-	$(document).on("input", "#dataset", updateFieldSet);
 
 	$.get('datasets.php', function (data) {
 		$('#dataset').empty().append(data);
@@ -108,7 +106,6 @@ $(document).ready(function () {
 					if (xhr.responseText == "\nok") {
 						$('#sentenceNumber').val(getRandomInt(numSentences));
 						updateSentence();
-						updateFieldSet();
 
 						$("#record").attr("disabled", false);
 						$("#stop").attr("disabled", true);
