@@ -1,29 +1,21 @@
-<?php
 
-/**
- * Returns list of datasets
- */
+<?php
 
 include 'conn.php';
 $conn = OpenCon();
 
+//$ds = $_GET['ds'];
+//$sen = $_GET['sen'];
 
-$sql = "show tables from test";
+$ds = "الجهة";
+$sen = "الشرق";
+
+$sql = "select cpt from `". $ds . "` where valueText = '".$sen."'";
 $result = $conn->query($sql);
 
-$cpt = 0;
-$values = [];
-
-foreach ($result as $value) {
-    $cpt = $cpt + 1;
-    array_push($values, $value["Tables_in_test"]);
+foreach ($result as $value) {   
+    echo $value["cpt"];
 }
 
-$one_item = $values[rand(0, $cpt - 1)];
-
-echo '<option>' . $one_item . '</option>';;
-
 CloseCon($conn);
-
-
 ?>

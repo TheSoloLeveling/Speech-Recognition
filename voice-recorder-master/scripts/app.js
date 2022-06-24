@@ -36,17 +36,29 @@ $(document).ready(function () {
 	}
 
 	function updateFieldSet() {
-		$('#dataset').val('');
-		$.get('datasets.php',
-			{ ds: $('#dataset').val(), num: $('#sentenceNumber').val() }
-		).done(function (data) {
+		//generate random ID for the user
+		$("#name").val(randomString() + randomString());
+		$(document).on("input", "#dataset", updateDataset);
+		$(document).on("input", "#sentenceNumber", updateSentence);
+
+		$.get('datasets.php', function (data) {
 			$('#dataset').empty().append(data);
+			updateDataset();
 		});
 	}
 
+	$("#signal").click(function () {
+		$.get('signal.php',
+			{ ds: $('#dataset').val(), sen: document.getElementById('sentence').textContent}
+		).done(function (data) {
+			alert("Signal successfully send !!");
+			updateFieldSet();
+		});
+	});
+
 	$("#skip").click(function () {
 		$('#sentenceNumber').val(getRandomInt(numSentences));
-		updateSentence();
+		updateFieldSet();
 		$("#record").attr("disabled", false);
 		$("#stop").attr("disabled", true);
 		$("#nextSentence").attr("disabled", true);
@@ -103,17 +115,15 @@ $(document).ready(function () {
 					fd.append("audio", blob, clipName);
 					xhr.open("POST", "upload.php", false);
 					xhr.send(fd);
-					if (xhr.responseText == "\nok") {
-						$('#sentenceNumber').val(getRandomInt(numSentences));
-						updateSentence();
-
-						$("#record").attr("disabled", false);
-						$("#stop").attr("disabled", true);
-						$("#nextSentence").attr("disabled", true);
-					}
-					else {
-						alert('error during upload');
-					}
+	
+					$('#sentenceNumber').val(getRandomInt(numSentences));
+					updateFieldSet()
+					
+					$("#record").attr("disabled", false);
+					$("#stop").attr("disabled", true);
+					$("#nextSentence").attr("disabled", true);
+					
+					
 				});
 
 				mediaRecorder.onstop = function (e) {

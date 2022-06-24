@@ -7,7 +7,6 @@
 include 'conn.php';
 $conn = OpenCon();
 
-
 $sql = "show tables from test";
 $result = $conn->query($sql);
 

@@ -10,85 +10,110 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link href='https://css.gg/danger.css' rel='stylesheet'>
-    <link rel="stylesheet" href="style.css">
-    <title>Voice Recorder</title>
+    
 </head>
 
 <body>
+    <style>
+        body {
+            background: #642B73;
+            background: linear-gradient(to right, #71b7e6, #9c4dbb);
+        }
 
-
-    <div class="container">
-        <div >
-            <h2 class="title" style="margin-bottom: 20px;">Voice Recoder form</h2>
-        </div>
-
-        <form>
-            <div class="form-row">
-                <div class="form-group col">
-                    <label style="font-weight: bold;"> Description </label>
-                    <p style="padding: 10px; border-style: outset; border-width: 5px; border-color: #71b7e6;border-radius: 10px;"> this is an application </p>
-                    </select>
-                </div>
-            </div>
-            
-            <div class="form-row">
-                <div class="form-group col">
-                    <label style="font-weight: bold;" for="dataset">Fieldset</label>
-                    <select class="form-control" id="dataset">
-                    </select>
-                </div>
-            </div>
-
-            <div class="form-group">
-                <label style="font-weight: bold;" for="sentenceField">Sentence</label>
-                <fieldset id="sentenceField">
-                    <div class="alert alert-dark" role="alert" id="sentence"></div>
-                </fieldset>
-            </div>
-
-            <div style="margin-bottom: 30px; margin-left: 5px;" class="form-row">
-                
-                <button style="background-color: rgb(212, 32, 0); display: flex; color: rgb(255, 255, 255); border: none;" type="button" class="btn btn-primary">Signal sentence <i style="color: rgb(255, 255, 255); margin-left: 10px; margin-top: 2px;" class="gg-danger"></i> </button>
-            </div>
-            
-            <div class="form-row">
-                <div class="form-group col">
-                    <label for="recordingGrp">Recording</label>
-                    <fieldset id="recordingGrp">
-
-                        <div class="btn-group d-flex">
-                            <button type="button" class="btn btn-primary" id="record">Record</button>
-
-                            <button type="button" class="btn btn-secondary" id="stop" disabled>Stop</button>
-                            <button type="button" class="btn btn-secondary" id="nextSentence" disabled>Upload and next
-                                sentence</button>
-                            <button type="button" class="btn btn-secondary" id="skip">Skip sentence</button>
+        form {
+            background-color: white;
+            border-radius: 5px;
+            padding: 20px;
+            margin-top: 5%;
+        }
+    </style>
+    <div  class="container">
+        <div class="">
+            <form style="margin-top: 100px;">
+                <div>
+                    <div class="img-fluid" >
+                        <div class="rounded float-left">
+                            <img class="img-thumbnail" height="50px" width="150px" src="logos/LOGOTICLab-01.png" class="img-thumbnail" alt="Responsive image">
                         </div>
-                    </fieldset>
+                    </div>
+                    <div class="img-fluid" > 
+                        <div class="rounded float-right" >
+                            <img class="img-thumbnail" height="50px" width="100px" src="logos/logo-color.png" class="img-thumbnail" alt="Responsive image">
+                        </div>
+                    </div>
+                    <h2 class="title" style="margin-bottom: 20px; margin-top: 10px; text-align: center;">Formulaire Saisie DARIJA</h2>
                 </div>
-
-                <div class="form-group col-md-auto">
-                
-                </div>
-
-                <div style="margin-left: 20px;" class="form-group col">
-                    <label for="previewField">Recording preview</label>
-                    <fieldset id="previewField" class="">
-                        <audio id="preview" controls style="width: 100%"></audio>
-                    </fieldset>
-                    <div class="col-md-auto"><input type="checkbox" checked id="autoplay"> Autoplay
-                        recording</label>
+                <div class="form-row">
+                    <div class="form-group col">
+                        <label style="font-weight: bold; margin-top: 50px;">À props de nous</label>
+                        <p style="padding: 10px; border-style: outset; border-width: 5px; border-color: #71b7e6;border-radius: 10px;"> ... </p>
+                        </select>
                     </div>
                 </div>
-            </div>
-        </form>
-
-        <section class="main-controls">
-            <canvas class="visualizer" height="60px"></canvas>
-            <div id="buttons">
-            </div>
-        </section>
-
+                
+                <div class="form-row">
+                    <div class="form-group col">
+                        <label style="font-weight: bold;" for="dataset">Choix du genre</label>
+                        <select class="form-control" id="dataset">
+                        </select>
+                    </div>
+                </div>
+    
+                <div class="form-group">
+                    <label style="font-weight: bold; margin-top: 20px;" for="sentenceField">La phrase à enregistrer</label>
+                    <fieldset id="sentenceField">
+                        <div class="alert alert-dark" role="alert" id="sentence"></div>
+                    </fieldset>
+                </div>
+    
+                <div style="margin-bottom: 30px; margin-left: 5px;" class="form-row">
+                    
+                    <button id="signal" style="background-color: rgb(212, 32, 0); display: flex; color: rgb(255, 255, 255); border: none;" type="button" class="btn btn-primary">Signaler phrase <i style="color: rgb(255, 255, 255); margin-left: 10px; margin-top: 2px;" class="gg-danger"></i> </button>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group col">
+                        <label style="font-weight: bold;" for="recordingGrp">Enregistrement</label>
+                        <fieldset id="recordingGrp">
+    
+                            <div class="btn-group d-flex">
+                                <button type="button" class="btn btn-primary" id="record">Enregistrer</button>
+    
+                                <button type="button" class="btn btn-secondary" id="stop" disabled>Arrêter</button>
+                                <button type="button" class="btn btn-secondary" id="nextSentence" disabled>Télecharger et passer à la phrase suivante</button>
+                                <button type="button" class="btn btn-secondary" id="skip">Sauter phrase</button>
+                            </div>
+                        </fieldset>
+                    </div>
+    
+                    <div class="form-group col-md-auto">
+                    
+                    </div>
+    
+                    <div style="margin-left: 20px;" class="form-group col">
+                        <label style="font-weight: bold;" for="previewField">
+                            aperçu de l'enregistrement</label>
+                        <fieldset id="previewField" class="">
+                            <audio id="preview" controls style="width: 100%"></audio>
+                        </fieldset>
+                        <div class="col-md-auto"><input type="checkbox" checked id="autoplay"> 
+                            Enregistrement en lecture automatique
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <h2 class="blockquote text-center" style="margin-bottom: 10px; margin-top: 20px;">© Copyright 2022 TICLab. Tous droits réservés</h2>
+                </div>
+            </form>
+    
+            <section class="main-controls">
+                <canvas class="visualizer" height="60px"></canvas>
+                <div id="buttons">
+                </div>
+            </section>
+    
+        </div>
     </div>
 
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"

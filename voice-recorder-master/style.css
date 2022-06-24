@@ -1,18 +1,15 @@
-@import url('http://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&disp')
-
-*{
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Poppins', sans-serif;
-}
 
 body{
     display: flex;
+    width: 100%;
     height: 100vh;
     justify-content: center;
     align-items: center;
-    background: linear-gradient(135deg, #71b7e6, #9b59b6);
+    background: linear-gradient(135deg, #71b7e6, #a52cd4);
+}
+
+[class*="col-"] {
+    width: 100%;
 }
 
 .container{

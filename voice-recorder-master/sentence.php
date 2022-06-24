@@ -12,7 +12,7 @@ $ds = $_GET['ds'];
 $file = 'datasets/' . $ds;
 
 
-$sql = "SELECT id, valueText FROM". " " . $ds;
+$sql = "SELECT valueText FROM". " " . $ds . " where cpt < 3";
 $result = $conn->query($sql);
 
 
