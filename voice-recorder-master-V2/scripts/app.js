@@ -1,7 +1,8 @@
 $(document).ready(function () {
 
+	
 	var numSentences = 1;
-
+	
 	function getRandomInt(max) {
 		min = 1;
 		max++;
@@ -20,8 +21,7 @@ $(document).ready(function () {
 		$.get('num_sentences.php',
 			{ ds: $('#dataset').val() }
 		).done(function (data) {
-			numSentences = parseInt(data, 10);
-			$('#sentenceNumber').val(getRandomInt(numSentences));
+			$('#sentenceNumber').val(numSentences);
 			updateSentence();
 		});
 	}
@@ -32,33 +32,15 @@ $(document).ready(function () {
 			{ ds: $('#dataset').val(), num: $('#sentenceNumber').val() }
 		).done(function (data) {
 			$('#sentence').empty().append(data);
+			
 		});
 	}
-
-	function updateFieldSet() {
-		//generate random ID for the user
-		$("#name").val(randomString() + randomString());
-		$(document).on("input", "#dataset", updateDataset);
-		$(document).on("input", "#sentenceNumber", updateSentence);
-
-		$.get('datasets.php', function (data) {
-			$('#dataset').empty().append(data);
-			updateDataset();
-		});
-	}
-
-	$("#signal").click(function () {
-		$.get('signal.php',
-			{ ds: $('#dataset').val(), sen: document.getElementById('sentence').textContent}
-		).done(function (data) {
-			alert("Signal successfully send !!");
-			updateFieldSet();
-		});
-	});
 
 	$("#skip").click(function () {
-		$('#sentenceNumber').val(getRandomInt(numSentences));
-		updateFieldSet();
+		
+		numSentences = numSentences + 1;
+		$('#sentenceNumber').val(numSentences);
+		updateSentence();
 		$("#record").attr("disabled", false);
 		$("#stop").attr("disabled", true);
 		$("#nextSentence").attr("disabled", true);
@@ -68,7 +50,9 @@ $(document).ready(function () {
 	$("#name").val(randomString() + randomString());
 	$(document).on("input", "#dataset", updateDataset);
 	$(document).on("input", "#sentenceNumber", updateSentence);
-
+	
+	
+	document.getElementById("sentenceNumber").value = numSentences;
 	$.get('datasets.php', function (data) {
 		$('#dataset').empty().append(data);
 		updateDataset();
@@ -82,7 +66,7 @@ $(document).ready(function () {
 
 		navigator.mediaDevices.getUserMedia(constraints)
 			.then(function (stream) {
-
+				
 				var mediaRecorder = new MediaRecorder(stream);
 
 				$("#record").click(function () {
@@ -92,6 +76,7 @@ $(document).ready(function () {
 					$("#record").attr("disabled", true);
 					$("#stop").attr("disabled", false);
 					$("#nextSentence").attr("disabled", true);
+					
 				});
 
 				$("#stop").click(function () {
@@ -101,7 +86,8 @@ $(document).ready(function () {
 					$("#nextSentence").attr("disabled", false);
 				});
 
-				$("#nextSentence").click(function () {
+				$("#nextSentence").click(function () {		
+
 					var xhr = new XMLHttpRequest();
 					xhr.onload = function (e) {
 						if (this.readyState === 4) {
@@ -115,15 +101,29 @@ $(document).ready(function () {
 					fd.append("audio", blob, clipName);
 					xhr.open("POST", "upload.php", false);
 					xhr.send(fd);
-	
-					$('#sentenceNumber').val(getRandomInt(numSentences));
-					updateFieldSet()
-					
-					$("#record").attr("disabled", false);
-					$("#stop").attr("disabled", true);
-					$("#nextSentence").attr("disabled", true);
-					
-					
+					if (xhr.responseText == "\nok") {
+						if (numSentences === 3) {
+							if (document.getElementById('lan').classList.contains("active")){
+								document.getElementById('nextSentence').textContent = "إنتهاء";
+							}
+							else {
+								document.getElementById('nextSentence').textContent = "terminer";
+							}
+							
+						}
+						if (numSentences === 4) {
+							window.location.replace("final.html");
+						}
+						$('#sentenceNumber').val(numSentences);
+						updateSentence();
+						$("#skip").click();
+						$("#record").attr("disabled", false);
+						$("#stop").attr("disabled", true);
+						$("#nextSentence").attr("disabled", true);
+					}
+					else {
+						alert('error during upload');
+					}
 				});
 
 				mediaRecorder.onstop = function (e) {
@@ -137,6 +137,7 @@ $(document).ready(function () {
 
 					if ($("#autoplay").is(":checked"))
 						$("#preview").trigger("play");
+					
 				}
 
 				mediaRecorder.ondataavailable = function (e) {

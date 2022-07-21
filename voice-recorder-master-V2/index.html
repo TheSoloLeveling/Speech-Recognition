@@ -1,0 +1,229 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <title>Voice Recorder</title>
+    
+</head>
+
+<body>
+    <style>
+        body {
+            background: #642B73;
+            background: linear-gradient(to right, #71b7e6, #9c4dbb);
+        }
+
+        form {
+            background-color: white;
+            border-radius: 5px;
+            padding: 20px;
+            margin-top: 5%;
+        }
+    </style>
+    <div class="container">
+        
+        <form style="margin-top: 100px;">
+            <div style="padding-bottom: 50px;">
+                <div class="img-fluid" >
+                    <div class="rounded float-left">
+                        <img class="img-thumbnail" height="50px" width="150px" src="logos/LOGOTICLab-01.png" class="img-thumbnail" alt="Responsive image">
+                    </div>
+                </div>
+                <div class="visible-xs" >
+                    <div class="img-fluid" > 
+                        <div class="rounded float-right" >
+                            <img class="img-thumbnail" height="50px" width="90px" src="logos/logo-color.png" class="img-thumbnail" alt="Responsive image">
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+            <div style="display: none; text-align: start;" class="form-group">
+                <label for="name">Your name/ID</label>
+                <input type="text" class="form-control" id="name" placeholder="Enter Your name/ID here">
+            </div>
+
+            <div>
+                
+                <h2 id="title" class="title" style="margin-bottom: 20px; margin-top: 90px; text-align: center;">ملأ إستيمارا بالداريجا</h2>
+            </div>
+
+            <div id="tt" class="form-group" style=" padding-left: 80px; padding-right: 80px; text-align: end;" >
+                <label class="description" style="font-weight: bold; margin-top: 80px;">التعريف بالإستيمارا</label>
+                <fieldset>
+                    <audio src="data/test.ogg" controls style="width: 100%"></audio>
+                </fieldset>
+                
+                    <textarea rows="4" class="p" style="-webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; width: 100%; ;padding: 10px; border-style: outset; border-width: 5px; border-color: #71b7e6;border-radius: 10px; text-align: center; text-align-last: center; display: flex;"> سلام علايكوم ، هاد التطبيق مديور باش نجمعو تاسجيلات ليغادي تمكننا ناس داوي الاحتياجات الخاصة أيوليو إعمرو الاستمرات غير بالصوت عليهاغادي نحتاجوكم تضغط على التسجيل أو تعودو كل كلمة 3 مارات ، أو منين تبغي تسالي برك علا زر التوقف، أو من بعد دوز لكلما تانيا ، كاينين خمسة الكلمات صافي. </textarea>
+                
+            </div>
+
+            <div class="form-row">
+                <div style="display: none; text-align: start;" class="form-group col">
+                    <label style="font-weight: bold; margin-top: 20px;" for="dataset">Dataset</label>
+                    <select class="form-control" id="dataset">
+                    </select>
+                </div>
+
+                <div style="text-align: start;" class="form-group col">
+                    <input style="display: none;" type="number" class="form-control" id="sentenceNumber" value="1">
+                </div>
+            </div>
+
+            <div id="t1" class="form-group" style=" padding-left: 80px; padding-right: 80px; text-align: end;">
+                <label id="t1" class="sentence" style="font-weight: bold;" for="sentenceField">الكلما ليغادي تسجلها</label>
+                
+                <fieldset id="sentenceField">
+                    <div style=" font-size: 8vw; font-family:'Courier New', Courier, monospace; text-align: center;" class="alert alert-dark" role="alert" id="sentence" name="sentence"></div>
+                </fieldset>
+            </div>
+
+            <div id="t2" class="form-row" style=" padding-left: 80px; padding-right: 80px; text-align: end;">
+                <div class="form-group col">
+                    <label id="t2" class="recording" style="font-weight: bold;" for="recordingGrp">أداة التسجيل</label>
+                    <fieldset id="recordingGrp">
+
+                        <div class="btn-group d-flex" style="text-align: center; display: flex; justify-content: center;">
+                            <button type="button" class="btn btn-primary" id="record">تسجيل</button>
+
+                            <button type="button" class="btn btn-secondary" id="stop" disabled>وقف</button>
+                            <button type="button" class="test" class="btn btn-secondary" id="nextSentence" disabled>الكلما ليموراها</button>
+                            <button style="display: none;" type="button" class="btn btn-secondary" id="skip">Skip sentence</button>
+                        </div>
+                    </fieldset>
+                </div>
+
+                <div id="t3" class="form-group col" style="text-align: end;">
+                    <label class="reco" style="font-weight: bold;" for="previewField">مراجعة التسجيل</label>
+                    <fieldset id="previewField" class="">
+                        <audio id="preview" controls style="width: 100%"></audio>
+                    </fieldset>
+                    <fieldset id="recordingGrp" class="row align-items-center">
+
+                        <div class="col-md-auto"><input type="checkbox" checked id="autoplay">    lecture automatique -  يتطلق الصوت بوحدو  </label>
+                        </div>
+                    </fieldset>
+                </div>
+            </div>
+            <div>
+                <h2 class="blockquote text-center" style="margin-bottom: 10px; margin-top: 20px;">© Copyright 2022 TICLab. Tous droits réservés</h2>
+            </div>
+            <div style="font-weight: bold; margin-top: 20px;" class="langWrap">
+                <a href="#fr" language='fr' >francais</a> |
+                <a href="#dar" language='dar' class="active" id="lan">داريجا</a>
+            </div>
+        </form>
+
+        <section class="main-controls">
+            <canvas class="visualizer" height="60px"></canvas>
+            <div id="buttons">
+            </div>
+        </section>
+
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+        
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+
+    <script src="scripts/app.js"></script>
+
+    <script>
+        
+        const langEl = document.querySelector('.langWrap');
+        const link = document.querySelectorAll('a');
+        const titleEl = document.querySelector('.title');
+        const descreEl = document.querySelector('.description');
+        const senEl = document.querySelector('.sentence');
+        const recordEl = document.querySelector('.recording');
+        const rdEl = document.querySelector('.reco');
+        const pEl = document.querySelector('.p');
+        const btnpEl = document.querySelector('.btn-primary');
+        const btnsEL = document.querySelector('.btn-secondary');
+        const tsEL = document.querySelector('.test');
+
+         link.forEach(eL => {
+            eL.addEventListener('click', () => {
+                langEl.querySelector('.active').classList.remove('active');
+               
+                if (eL.textContent === "داريجا"){
+                    document.getElementById('tt').style.textAlign = "end";
+                    document.getElementById('tt').style.paddingLeft = "80px";
+                    document.getElementById('t1').style.paddingLeft = "80px";
+                    document.getElementById('t2').style.paddingLeft = "80px";
+                    document.getElementById('tt').style.paddingRight = "80px";
+                    document.getElementById('t1').style.paddingRight = "80px";
+                    document.getElementById('t2').style.paddingRight = "80px";
+                    document.getElementById('t1').style.textAlign = "end";
+                    document.getElementById('t2').style.textAlign = "end";
+                    document.getElementById('t3').style.textAlign = "end";
+                }
+                if (eL.textContent === "francais"){
+                    document.getElementById('tt').style.textAlign = "start";
+                    document.getElementById('tt').style.paddingLeft = "80px";
+                    document.getElementById('t1').style.paddingLeft = "80px";
+                    document.getElementById('t2').style.paddingLeft = "80px";
+                    document.getElementById('tt').style.paddingRight = "80px";
+                    document.getElementById('t1').style.paddingRight = "80px";
+                    document.getElementById('t2').style.paddingRight = "80px";
+                    document.getElementById('t1').style.textAlign = "start";
+                    document.getElementById('t2').style.textAlign = "start";
+                    document.getElementById('t3').style.textAlign = "start";
+                }
+                eL.classList.add('active');
+                const attr = eL.getAttribute('language');
+                titleEl.textContent = data[attr].title;
+                descreEl.textContent = data[attr].description;
+                senEl.textContent = data[attr].sentence;
+                recordEl.textContent = data[attr].recording;
+                pEl.textContent = data[attr].p;
+                rdEl.textContent = data[attr].reco;
+                btnpEl.textContent = data[attr].enre;
+                btnsEL.textContent = data[attr].stop;
+                tsEL.textContent = data[attr].upload;
+            })
+         });
+        var data = {
+            "dar": {
+                "title": "ملأ إستيمارا بداريجا",
+                "description": "التعريف بالإستيمارا",
+                "sentence" : "الكلما ليغادي تسجلها",
+                "recording": "أداة التسجيل",
+                "p": "سلام علايكوم ، هاد التطبيق مديور باش نجمعو تاسجيلات ليغادي تمكننا ناس داوي الاحتياجات الخاصة أيوليو إعمرو الاستمرات غير بالصوت عليهاغادي نحتاجوكم تضغط على التسجيل أو تعودو كل كلمة 3 مارات ، أو منين تبغي تسالي برك علا زر التوقف، أو من بعد دوز لكلما تانيا ، كاينين خمسة الكلمات صافي.",
+                "reco": " مراجعة التسجيل",
+                "enre": "تسجيل",
+                "stop": "وقف",
+                "upload": "الكلما ليموراها" 
+            },
+            "fr": {
+                "title": "Formulaire Saisie DARIJA",
+                "description": "À propos du formulaire",
+                "sentence" : "mot a enregistrer",
+                "recording": "enregistrement",
+                "p": "سلام علايكوم ، هاد التطبيق مديور باش نجمعو تاسجيلات ليغادي تمكننا ناس داوي الاحتياجات الخاصة أيوليو إعمرو الاستمرات غير بالصوت عليهاغادي نحتاجوكم تضغط على التسجيل أو تعودو كل كلمة 3 مارات ، أو منين تبغي تسالي برك علا زر التوقف، أو من بعد دوز لكلما تانيا ، كاينين خمسة الكلمات صافي.",
+                "reco": "Aperçu de l'enregistrement",
+                "enre": "Enregistrer",
+                "stop": "Stop",
+                "upload": "mot suivant"
+            }
+        }
+    </script>
+
+    </body>
+
+</html>
